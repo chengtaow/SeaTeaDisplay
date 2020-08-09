@@ -1,0 +1,7 @@
+# User-specific files
+*.csproj.user
+
+/.vs/
+/bin/
+/SeaTeaDisplay/bin/
+/SeaTeaDisplay/obj/

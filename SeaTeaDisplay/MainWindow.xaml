@@ -1,0 +1,18 @@
+﻿<Window x:Class="SeaTeaDisplay.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeaTeaDisplay"
+        xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
+        mc:Ignorable="d"
+        Title="SeaTeaDisplay" Height="500" Width="800">
+    <Grid>
+        <StackPanel Margin="20">
+            <sharpGL:OpenGLControl Height="400" Name="openGLControl"  OpenGLDraw="OpenGLControl_OpenGLDraw" OpenGLInitialized="OpenGLControl_OpenGLInitialized"
+                RenderContextType="FBO">
+            </sharpGL:OpenGLControl>
+            <Label Height="50"></Label>
+        </StackPanel>
+    </Grid>
+</Window>
