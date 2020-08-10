@@ -28,6 +28,7 @@ namespace SeaTeaDisplay
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowModel();
         }
 
         /// <summary>

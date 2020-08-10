@@ -4,15 +4,41 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeaTeaDisplay"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
         mc:Ignorable="d"
         Title="SeaTeaDisplay" Height="500" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="StyleDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <StackPanel Margin="20">
-            <sharpGL:OpenGLControl Height="400" Name="openGLControl"  OpenGLDraw="OpenGLControl_OpenGLDraw" OpenGLInitialized="OpenGLControl_OpenGLInitialized"
-                RenderContextType="FBO">
-            </sharpGL:OpenGLControl>
-            <Label Height="50"></Label>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <Button Style="{StaticResource ImageButtonStyle}" Margin="10, 20, 10, 10" Width="100" Content="Import" Command="{Binding ImportCommand}"></Button>
         </StackPanel>
+        <sharpGL:OpenGLControl Grid.Column="1" Margin="10" Name="openGLControl" OpenGLDraw="OpenGLControl_OpenGLDraw"
+                               OpenGLInitialized="OpenGLControl_OpenGLInitialized" RenderContextType="FBO">
+        </sharpGL:OpenGLControl>
+        <Border Grid.Row="1" Grid.ColumnSpan="2" CornerRadius="5, 5, 0, 0">
+            <Border.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF70BBFF"/>
+                    <GradientStop Color="#FF56F3FF" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+            <Label Margin="5,0,5,5" Content="{Binding BottomMessage}"></Label>
+        </Border>
+        
     </Grid>
 </Window>
