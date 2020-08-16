@@ -50,6 +50,7 @@ namespace SeaTeaDisplay
         private void OpenGLDraw(object param)
         {
             // Clear The Screen And The Depth Buffer
+            gl.ClearColor(0.5f, 1f, 1f, 1f); // Set the background color
             gl.Clear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
 
             // Move Left And Into The Screen
