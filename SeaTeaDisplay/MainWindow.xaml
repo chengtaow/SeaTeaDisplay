@@ -28,7 +28,12 @@
             <Button Style="{StaticResource ImageButtonStyle}" Margin="10, 20, 10, 10" Width="100" Content="Import" Command="{Binding ImportCommand}"></Button>
         </StackPanel>
         <sharpGL:OpenGLControl Grid.Column="1" Margin="10" Name="openGLControl" OpenGLDraw="OpenGLControl_OpenGLDraw"
-                               OpenGLInitialized="OpenGLControl_OpenGLInitialized" RenderContextType="FBO">
+                               OpenGLInitialized="OpenGLControl_OpenGLInitialized" RenderContextType="FBO"
+                               MouseLeftButtonDown="openGLControl_MouseLeftButtonDown"
+                               MouseRightButtonDown="openGLControl_MouseRightButtonDown"
+                               MouseWheel="openGLControl_MouseWheel"
+                               MouseMove="openGLControl_MouseMove"
+                               MouseLeave="openGLControl_MouseLeave">
         </sharpGL:OpenGLControl>
         <Border Grid.Row="1" Grid.ColumnSpan="2" CornerRadius="5, 5, 0, 0">
             <Border.Background>
