@@ -6,16 +6,18 @@ using System.Windows.Input;
 using SharpGL;
 using SharpGL.WPF;
 using SharpGL.SceneGraph.Primitives;
-
-
+using GlmNet;
+using Microsoft.Win32;
 
 namespace SeaTeaDisplay
 {
     class MainWindowModel : WithNotification
     {
+        private DataModel dataModel;
         private OpenGL gl;
         public MainWindowModel()
         {
+            dataModel = new DataModel();
             _OpenGLInitializeCommand = new DelegateCommand(OpenGLInitialize, CanExecute);
             _OpenGLDrawCommand = new DelegateCommand(OpenGLDraw, CanExecute);
             _ImportCommand = new DelegateCommand(ImportPointClouds, CanExecute);
@@ -55,13 +57,20 @@ namespace SeaTeaDisplay
 
             // Move Left And Into The Screen
             gl.LoadIdentity();
-            gl.Translate(0.0f, 0.0f, -6.0f);
 
+            gl.PointSize(2f);
 
-            gl.Rotate(0f, 0.0f, 1.0f, 0.0f);
-
-            Teapot tp = new Teapot();
-            tp.Draw(gl, 14, 1, OpenGL.GL_FILL);
+            List <vec3> points = dataModel.GetPointCloud();
+            if (points != null)
+            {
+                gl.Begin(SharpGL.OpenGL.GL_LINES);
+                // Draw coordinates
+                foreach (var pt in points)
+                {
+                    gl.Vertex(pt.x, pt.y, pt.z);
+                }
+                gl.End();
+            }
         }
 
         /// <summary>
@@ -70,7 +79,14 @@ namespace SeaTeaDisplay
         /// <param name="param"></param>
         public void ImportPointClouds(object param)
         {
-
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Title = "Import Point Cloud Files";
+            openDlg.Filter = "Text File|*.txt|XYZ File|*.xyz|All Files|*.*";
+            openDlg.RestoreDirectory = true;
+            if (openDlg.ShowDialog() == true)
+            {
+                dataModel.ImportPointCloudFile(openDlg.FileName);
+            }
         }
 
         private bool CanExecute(object param)

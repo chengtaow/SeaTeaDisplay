@@ -50,5 +50,30 @@ namespace SeaTeaDisplay
         {
             mainWindowModel.OpenGLInitializeCommand.Execute(args.OpenGL);
         }
+
+        private void openGLControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void openGLControl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void openGLControl_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+
+        }
+
+        private void openGLControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void openGLControl_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }
