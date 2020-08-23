@@ -51,29 +51,42 @@ namespace SeaTeaDisplay
             mainWindowModel.OpenGLInitializeCommand.Execute(args.OpenGL);
         }
 
-        private void openGLControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-        private void openGLControl_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
         private void openGLControl_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-
+            mainWindowModel.ViewerZoomCommand.Execute(e.Delta);
         }
 
         private void openGLControl_MouseLeave(object sender, MouseEventArgs e)
         {
-
+            mainWindowModel.FinishViewerChangeCommand.Execute(null);
         }
 
         private void openGLControl_MouseMove(object sender, MouseEventArgs e)
         {
+            Point pt = e.GetPosition(openGLControl);
+            pt.X = pt.X / openGLControl.ActualWidth;
+            pt.Y = pt.Y / openGLControl.ActualHeight;
+            mainWindowModel.ViewerChangeCommand.Execute(pt);
+        }
 
+        private void openGLControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Point pt = e.GetPosition(openGLControl);
+            pt.X = pt.X / openGLControl.ActualWidth;
+            pt.Y = pt.Y / openGLControl.ActualHeight;
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                mainWindowModel.StartViewerOrbitCommand.Execute(pt);
+            }
+            else if (e.ChangedButton == MouseButton.Middle)
+            {
+                mainWindowModel.StartViewerPanCommand.Execute(pt);
+            }
+        }
+
+        private void openGLControl_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            mainWindowModel.FinishViewerChangeCommand.Execute(null);
         }
     }
 }

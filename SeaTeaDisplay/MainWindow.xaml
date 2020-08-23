@@ -7,6 +7,7 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         xmlns:sharpGL="clr-namespace:SharpGL.WPF;assembly=SharpGL.WPF"
         mc:Ignorable="d"
+        WindowState="Maximized"
         Title="SeaTeaDisplay" Height="500" Width="800">
     <Window.Resources>
         <ResourceDictionary>
@@ -29,8 +30,8 @@
         </StackPanel>
         <sharpGL:OpenGLControl Grid.Column="1" Margin="10" Name="openGLControl" OpenGLDraw="OpenGLControl_OpenGLDraw"
                                OpenGLInitialized="OpenGLControl_OpenGLInitialized" RenderContextType="FBO"
-                               MouseLeftButtonDown="openGLControl_MouseLeftButtonDown"
-                               MouseRightButtonDown="openGLControl_MouseRightButtonDown"
+                               MouseDown="openGLControl_MouseDown"
+                               MouseUp="openGLControl_MouseUp"
                                MouseWheel="openGLControl_MouseWheel"
                                MouseMove="openGLControl_MouseMove"
                                MouseLeave="openGLControl_MouseLeave">
@@ -38,8 +39,8 @@
         <Border Grid.Row="1" Grid.ColumnSpan="2" CornerRadius="5, 5, 0, 0">
             <Border.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF70BBFF"/>
-                    <GradientStop Color="#FF56F3FF" Offset="1"/>
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="#FF70E5FF" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
             <Label Margin="5,0,5,5" Content="{Binding BottomMessage}"></Label>
