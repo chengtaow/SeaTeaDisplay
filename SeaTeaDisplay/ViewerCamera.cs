@@ -16,9 +16,9 @@ namespace SeaTeaDisplay
         public double zNear;
         public double zFar;
 
-        private vec3 orbitFront;
-        private vec3 orbitUp;
-        private vec3 orbitRight;
+        private vec3 up;
+        private vec3 front;
+        private vec3 right;
         private vec3 orbitTarget;
         private double frontLength;
         private double orbitPitch;
@@ -31,25 +31,34 @@ namespace SeaTeaDisplay
         public ViewerCamera()
         {
             cameraPos = new vec3(0f, 0f, -100f);
-            cameraFront = new vec3(0f, 0f, 100f);
+            cameraFront = new vec3(0f, 0f, 1f);
             upVector = new vec3(0f, 1f, 0f);
             cameraFov = 60.0;
             aspect = 1.0;
             zNear = 0.0;
             zFar = 20.0;
-            orbitFront = new vec3();
-            orbitUp = new vec3();
-            orbitRight = new vec3();
+            
             orbitTarget = new vec3();
         }
 
         public void CameraZoom(int zoomValue)
         {
+            // Get zoom value.
             float value = (float)(zoomValue * zoomSensitivity);
-            // Change the camera fov, the fov is between 1 degree and 170 degree
-            // Not a correct calculation, test for now
-            cameraPos.z += value;
-            cameraFront.z -= value;
+            // Normalize the front vector
+            cameraFront = glm.normalize(cameraFront);
+            // Change the camera position
+            cameraPos.x += value * cameraFront.x;
+            cameraPos.y += value * cameraFront.y;
+            cameraPos.z += value * cameraFront.z;
+        }
+
+        public void CameraStartingPan()
+        {
+            up = glm.normalize(upVector);
+            front = glm.normalize(cameraFront); // front direction
+            right = glm.cross(up, front); // right direction
+                                               
         }
 
         public void CameraPan(Point curPt, Point prePt)
@@ -57,14 +66,16 @@ namespace SeaTeaDisplay
             double xDev = (curPt.X - prePt.X) * panSensitivity;
             double yDev = (curPt.Y - prePt.Y) * panSensitivity;
 
-            vec3 up = glm.normalize(upVector);
-            vec3 front = glm.normalize(cameraFront); // front direction
-            vec3 right = glm.cross(up, front); // right direction
-                                               // Move x deviation along right direction, move y deviation along up direction. 
+            // Move x deviation along right direction, move y deviation along up direction. 
             cameraPos.x -= (float)(up.x * yDev + right.x * xDev);
             cameraPos.y -= (float)(up.y * yDev + right.y * xDev);
             cameraPos.z -= (float)(up.z * yDev + right.z * xDev);
             //UpdateBackgroundPts();
+        }
+
+        public void CameraOrbit(Point curPt, Point prePt)
+        {
+
         }
     }
 }

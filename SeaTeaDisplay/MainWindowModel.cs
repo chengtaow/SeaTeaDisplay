@@ -103,6 +103,7 @@ namespace SeaTeaDisplay
         public void ViewerStartPan(object param)
         {
             previousPoint = (Point)param;
+            camera.CameraStartingPan();
             viewerPanning = true;
         }
 
@@ -119,7 +120,8 @@ namespace SeaTeaDisplay
                 || Math.Abs(currentPoint.Y - previousPoint.Y) > 0.1)
             if (viewerOrbiting)
             {
-
+                camera.CameraOrbit(previousPoint, currentPoint);
+                previousPoint = currentPoint;
             }
             if (viewerPanning)
             {
